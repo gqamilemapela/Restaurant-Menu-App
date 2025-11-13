@@ -1,15 +1,22 @@
 import React, { useContext, useState } from 'react';
 import { View, Text, FlatList, Image, StyleSheet } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
-import { MenuContext } from '../context/MenuContext';
+import { MenuContext, MenuItem } from '../context/MenuContext';
 
 export default function GuestFilterScreen() {
   const { menuItems } = useContext(MenuContext);
   const [selectedCategory, setSelectedCategory] = useState<'Starter' | 'Main' | 'Dessert'>('Starter');
 
-  const filteredItems = menuItems.filter((item) => item.category === selectedCategory);
+  const filteredItems: typeof menuItems = [];
+  let i = 0;
+  while (i < menuItems.length) {
+    if (menuItems[i].category === selectedCategory) {
+      filteredItems.push(menuItems[i]);
+    }
+    i++;
+  }
 
-  const renderDish = ({ item }: { item: typeof menuItems[0] }) => (
+  const renderDish = ({ item }: { item: MenuItem }) => (
     <View style={styles.card}>
       {item.image ? (
         <Image source={{ uri: item.image }} style={styles.dishImage} />
@@ -26,7 +33,7 @@ export default function GuestFilterScreen() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Filter Dishes</Text>
+      <Text style={styles.title}>Filter Dishes by Course</Text>
       <Picker
         selectedValue={selectedCategory}
         onValueChange={(value) => setSelectedCategory(value)}
@@ -40,7 +47,7 @@ export default function GuestFilterScreen() {
       <FlatList
         data={filteredItems}
         renderItem={renderDish}
-        keyExtractor={(item) => item.id}
+                keyExtractor={(item: MenuItem) => item.id}
         contentContainerStyle={{ paddingBottom: 20 }}
       />
     </View>
@@ -48,11 +55,7 @@ export default function GuestFilterScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#FDF6F0',
-    padding: 20,
-  },
+  container: { flex: 1, backgroundColor: '#FDF6F0', padding: 20 },
   title: {
     fontSize: 26,
     fontWeight: '700',
@@ -77,40 +80,14 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     elevation: 3,
   },
-  dishImage: {
-    width: '100%',
-    height: 180,
-    borderRadius: 12,
-    marginBottom: 10,
-  },
+  dishImage: { width: '100%', height: 180, borderRadius: 12, marginBottom: 10 },
   placeholder: {
-    width: '100%',
-    height: 180,
-    borderRadius: 12,
-    backgroundColor: '#E2D8C3',
-    justifyContent: 'center',
-    alignItems: 'center',
+    width: '100%', height: 180, borderRadius: 12,
+    backgroundColor: '#E2D8C3', justifyContent: 'center', alignItems: 'center',
     marginBottom: 10,
   },
-  placeholderText: {
-    color: '#7A6652',
-    fontSize: 16,
-  },
-  dishName: {
-    fontSize: 20,
-    fontWeight: '700',
-    color: '#4A3F35',
-    marginBottom: 5,
-  },
-  dishDescription: {
-    fontSize: 16,
-    color: '#7A6652',
-    marginBottom: 5,
-  },
-  dishPrice: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: '#4A3F35',
-    marginBottom: 5,
-  },
+  placeholderText: { color: '#7A6652', fontSize: 16 },
+  dishName: { fontSize: 20, fontWeight: '700', color: '#4A3F35', marginBottom: 5 },
+  dishDescription: { fontSize: 16, color: '#7A6652', marginBottom: 5 },
+  dishPrice: { fontSize: 16, fontWeight: '600', color: '#4A3F35', marginBottom: 5 },
 });

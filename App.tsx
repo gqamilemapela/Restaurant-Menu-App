@@ -7,6 +7,7 @@ import ChefDashboardScreen from './screens/ChefDashboardScreen';
 import AddDishScreen from './screens/AddDishScreen';
 import GuestMenuScreen from './screens/GuestMenuScreen';
 import GuestFilterScreen from './screens/GuestFilterScreen';
+import ManageMenuScreen from './screens/ManageMenuScreen';
 import { MenuProvider } from './context/MenuContext';
 
 export type RootStackParamList = {
@@ -14,6 +15,7 @@ export type RootStackParamList = {
   ChefLogin: undefined;
   ChefDashboard: undefined;
   AddDish: undefined;
+  ManageMenu: undefined;
   GuestMenu: undefined;
   GuestFilter: undefined;
 };
@@ -24,11 +26,15 @@ export default function App() {
   return (
     <MenuProvider>
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="Welcome">
+        <Stack.Navigator
+          initialRouteName="Welcome"
+          screenOptions={{ headerShown: false }}
+        >
           <Stack.Screen name="Welcome" component={WelcomeScreen} />
           <Stack.Screen name="ChefLogin" component={ChefLoginScreen} />
           <Stack.Screen name="ChefDashboard" component={ChefDashboardScreen} />
           <Stack.Screen name="AddDish" component={AddDishScreen} />
+          <Stack.Screen name="ManageMenu" component={ManageMenuScreen} />
           <Stack.Screen name="GuestMenu" component={GuestMenuScreen} />
           <Stack.Screen name="GuestFilter" component={GuestFilterScreen} />
         </Stack.Navigator>

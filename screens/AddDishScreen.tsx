@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert, Image, ScrollView } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import * as ImagePicker from 'expo-image-picker';
-import { MenuContext } from '../context/MenuContext';
+import { MenuContext, MenuItem } from '../context/MenuContext';
 
 export default function AddDishScreen() {
   const { addDish } = useContext(MenuContext);
@@ -15,7 +15,7 @@ export default function AddDishScreen() {
 
   const pickImage = async () => {
     const result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      mediaTypes: ['images'],
       quality: 1,
     });
 
@@ -36,11 +36,11 @@ export default function AddDishScreen() {
       description,
       category,
       price: parseFloat(price),
-      image: imageUri || '', // Use selected image
+      image: imageUri || '',
       isVegetarian: false,
     });
 
-    Alert.alert('Success', 'Dish added!');
+    Alert.alert('Success', 'Dish added successfully!');
     setName('');
     setDescription('');
     setPrice('');
@@ -51,25 +51,49 @@ export default function AddDishScreen() {
     <ScrollView contentContainerStyle={styles.container}>
       <Text style={styles.title}>Add New Dish</Text>
 
-      <TextInput placeholder="Dish Name" value={name} onChangeText={setName} style={styles.input} />
-      <TextInput placeholder="Description" value={description} onChangeText={setDescription} style={styles.input} />
-      
-      <Picker selectedValue={category} onValueChange={(value) => setCategory(value)} style={styles.picker}>
-        <Picker.Item label="Starters" value="Starter" />
-        <Picker.Item label="Mains" value="Main" />
-        <Picker.Item label="Desserts" value="Dessert" />
+      <TextInput
+        placeholder="Dish Name"
+        value={name}
+        onChangeText={setName}
+        style={styles.input}
+      />
+
+      <TextInput
+        placeholder="Description"
+        value={description}
+        onChangeText={setDescription}
+        style={[styles.input, { height: 90 }]}
+        multiline
+      />
+
+      <Picker
+        selectedValue={category}
+        onValueChange={(value: string) => setCategory(value as 'Starter' | 'Main' | 'Dessert')}
+        style={styles.picker}
+      >
+        <Picker.Item label="Starter" value="Starter" />
+        <Picker.Item label="Main" value="Main" />
+        <Picker.Item label="Dessert" value="Dessert" />
       </Picker>
 
-      <TextInput placeholder="Price" value={price} onChangeText={setPrice} keyboardType="numeric" style={styles.input} />
+      <TextInput
+        placeholder="Price"
+        value={price}
+        onChangeText={setPrice}
+        keyboardType="numeric"
+        style={styles.input}
+      />
 
       <TouchableOpacity style={styles.imageButton} onPress={pickImage}>
-        <Text style={styles.buttonText}>{imageUri ? 'Change Image' : 'Pick an Image'}</Text>
+        <Text style={styles.imageButtonText}>
+          {imageUri ? 'Change Image' : 'Pick an Image'}
+        </Text>
       </TouchableOpacity>
 
-      {imageUri && <Image source={{ uri: imageUri }} style={styles.previewImage} />}
+      {imageUri && <Image source={{ uri: imageUri }} style={styles.imagePreview} />}
 
-      <TouchableOpacity style={styles.button} onPress={handleAddDish}>
-        <Text style={styles.buttonText}>Add Dish</Text>
+      <TouchableOpacity style={styles.submitButton} onPress={handleAddDish}>
+        <Text style={styles.submitText}>Add Dish</Text>
       </TouchableOpacity>
     </ScrollView>
   );
@@ -77,21 +101,21 @@ export default function AddDishScreen() {
 
 const styles = StyleSheet.create({
   container: {
-    padding: 20,
     backgroundColor: '#FDF6F0',
+    padding: 20,
   },
   title: {
     fontSize: 28,
     fontWeight: '700',
     color: '#4A3F35',
-    marginBottom: 20,
+    marginBottom: 25,
     fontFamily: 'serif',
     textAlign: 'center',
   },
   input: {
     backgroundColor: '#FFF',
     borderRadius: 12,
-    padding: 12,
+    padding: 14,
     marginBottom: 15,
     borderWidth: 1,
     borderColor: '#DAB68C',
@@ -99,32 +123,42 @@ const styles = StyleSheet.create({
   picker: {
     backgroundColor: '#FFF',
     borderRadius: 12,
+    borderColor: '#DAB68C',
+    borderWidth: 1,
     marginBottom: 15,
-  },
-  button: {
-    backgroundColor: '#DAB68C',
-    paddingVertical: 14,
-    paddingHorizontal: 40,
-    borderRadius: 12,
-    alignItems: 'center',
-    marginTop: 10,
   },
   imageButton: {
-    backgroundColor: '#A1866F',
-    paddingVertical: 12,
+    backgroundColor: '#A67C52',
     borderRadius: 12,
+    paddingVertical: 14,
     alignItems: 'center',
     marginBottom: 15,
   },
-  buttonText: {
+  imageButtonText: {
     color: '#FFF',
     fontWeight: '600',
     fontSize: 16,
   },
-  previewImage: {
+  imagePreview: {
     width: '100%',
     height: 200,
     borderRadius: 12,
-    marginBottom: 15,
+    marginBottom: 20,
+  },
+  submitButton: {
+    backgroundColor: '#DAB68C',
+    borderRadius: 12,
+    paddingVertical: 16,
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
+    elevation: 3,
+  },
+  submitText: {
+    color: '#FFF',
+    fontWeight: '700',
+    fontSize: 18,
   },
 });

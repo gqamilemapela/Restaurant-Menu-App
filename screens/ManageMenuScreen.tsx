@@ -1,22 +1,9 @@
 import React, { useContext } from 'react';
-import { View, Text, FlatList, Image, StyleSheet } from 'react-native';
+import { View, Text, FlatList, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import { MenuContext, MenuItem } from '../context/MenuContext';
 
-let totalMenuValue: number = 0;
-
-export default function GuestMenuScreen() {
-  const { menuItems } = useContext(MenuContext);
-
-  const calculateTotalValue = (): number => {
-    let total = 0;
-    for (let i = 0; i < menuItems.length; i++) {
-      total += menuItems[i].price;
-    }
-    totalMenuValue = total; 
-    return total;
-  };
-
-  const totalValue = calculateTotalValue();
+export default function ManageMenuScreen() {
+  const { menuItems, removeDish } = useContext(MenuContext);
 
   const renderDish = ({ item }: { item: MenuItem }) => (
     <View style={styles.card}>
@@ -31,23 +18,23 @@ export default function GuestMenuScreen() {
       <Text style={styles.dishDescription}>{item.description}</Text>
       <Text style={styles.dishPrice}>R{item.price.toFixed(2)}</Text>
       <Text style={styles.dishCategory}>{item.category}</Text>
+
+      <TouchableOpacity style={styles.removeButton} onPress={() => removeDish(item.id)}>
+        <Text style={styles.removeButtonText}>Remove</Text>
+      </TouchableOpacity>
     </View>
   );
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Menu ({menuItems.length} items)</Text>
+      <Text style={styles.title}>Manage Menu ({menuItems.length} items)</Text>
+
       <FlatList
         data={menuItems}
         renderItem={renderDish}
-                keyExtractor={(item: MenuItem) => item.id}
+        keyExtractor={(item: MenuItem) => item.id}
         contentContainerStyle={{ paddingBottom: 20 }}
       />
-      <View style={styles.totalContainer}>
-        <Text style={styles.totalText}>
-          Total Menu Value: R{totalValue.toFixed(2)}
-        </Text>
-      </View>
     </View>
   );
 }
@@ -75,12 +62,7 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     elevation: 2,
   },
-  dishImage: {
-    width: '100%',
-    height: 180,
-    borderRadius: 12,
-    marginBottom: 10,
-  },
+  dishImage: { width: '100%', height: 180, borderRadius: 12, marginBottom: 10 },
   placeholder: {
     width: '100%',
     height: 180,
@@ -91,38 +73,16 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   placeholderText: { color: '#7A6652', fontSize: 16 },
-  dishName: {
-    fontSize: 20,
-    fontWeight: '700',
-    color: '#3E2C24',
-    marginBottom: 5,
-  },
-  dishDescription: {
-    fontSize: 16,
-    color: '#6C5C4B',
-    marginBottom: 5,
-  },
-  dishPrice: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: '#4F3B2F',
-    marginBottom: 5,
-  },
-  dishCategory: {
-    fontSize: 14,
-    fontStyle: 'italic',
-    color: '#9C8265',
-  },
-  totalContainer: {
-    marginTop: 10,
+  dishName: { fontSize: 20, fontWeight: '700', color: '#3E2C24', marginBottom: 5 },
+  dishDescription: { fontSize: 16, color: '#6C5C4B', marginBottom: 5 },
+  dishPrice: { fontSize: 16, fontWeight: '600', color: '#4F3B2F', marginBottom: 5 },
+  dishCategory: { fontSize: 14, fontStyle: 'italic', color: '#9C8265', marginBottom: 10 },
+  removeButton: {
+    backgroundColor: '#DAB68C',
+    paddingVertical: 10,
+    borderRadius: 12,
     alignItems: 'center',
-    backgroundColor: '#EDE0D1',
-    padding: 10,
-    borderRadius: 8,
+    marginTop: 5,
   },
-  totalText: {
-    fontSize: 18,
-    fontWeight: '700',
-    color: '#3E2C24',
-  },
+  removeButtonText: { color: '#FFF', fontWeight: '600', fontSize: 16 },
 });

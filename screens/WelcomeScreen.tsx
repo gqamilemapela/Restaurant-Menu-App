@@ -18,7 +18,7 @@ export default function WelcomeScreen() {
 
       <TouchableOpacity
         style={[styles.button, styles.chefButton]}
-        onPress={() => navigation.navigate('ChefLogin')}
+        onPress={() => navigation.navigate('ChefLogin')} 
       >
         <Text style={styles.buttonText}>I'm the Chef</Text>
       </TouchableOpacity>
@@ -32,15 +32,15 @@ const styles = StyleSheet.create({
     justifyContent: 'center', 
     alignItems: 'center', 
     padding: 20, 
-    backgroundColor: '#FDF6F0', // soft, elegant cream
+    backgroundColor: '#F8F3EE',
   },
   title: { 
     fontSize: 32, 
     fontWeight: '700', 
     marginBottom: 50, 
     textAlign: 'center', 
-    color: '#4A3F35', // deep brown, classy
-    fontFamily: 'serif', // elegant feel
+    color: '#3E2C24',
+    fontFamily: 'serif',
   },
   button: { 
     paddingVertical: 18, 
@@ -54,10 +54,10 @@ const styles = StyleSheet.create({
     elevation: 3, 
   },
   guestButton: {
-    backgroundColor: '#DAB68C', // soft gold
+    backgroundColor: '#DAB68C',
   },
   chefButton: {
-    backgroundColor: '#A67C52', // rich brown
+    backgroundColor: '#A1866F',
   },
   buttonText: { 
     color: '#FFF', 

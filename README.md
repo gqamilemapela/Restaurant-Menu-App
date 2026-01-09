@@ -1,103 +1,106 @@
-Part 3 Submission
+# Restaurant Menu Management App 📱
 
-Student Name: Gqamile Bantwini Mapela
-Student Number: ST10457235
-Module Name: MAST
-Submission Date: 13/11/2025
+A mobile application built with **React Native**, **Expo**, and **TypeScript** for managing and displaying a restaurant menu.  
+The app supports multiple user roles and focuses on clean state management, intuitive navigation, and real-time UI updates.
 
-⸻
+This project demonstrates my ability to design, build, and structure a functional mobile application using modern React Native practices.
 
-Project Overview
+---
 
-I built this mobile application with React Native, Expo, and TypeScript and designed to manage and display a restaurant menu.
+## Project Overview
 
-Key Features I Have Added in Part 3:
-	• Chef login & dashboard
-	• Adding and removing dishes
-	• Viewing menu statistics (total dishes, average price, categories, vegetarian dishes)
-	• Guest menu browsing & filtering
-	• State management with MenuContext
+The app allows a **Chef** to manage menu items through a dashboard, while **Guests** can browse and filter the menu.  
+All menu data is handled locally using React’s Context API, ensuring consistent and responsive updates across screens.
 
-⸻
+---
 
-Features
+## Key Features
 
-Chef
-	•	Login Screen: Authenticate chef locally.
-	•	Dashboard: Displays menu statistics and list of dishes.
-	•	Add Dish: Form to add new dishes with name, description, category (Starter/Main/Dessert), price and optional image.
-	•	Remove Dish: Tap the remove button next to the dish in the dashboard to remove it.
+### Chef
+- Local authentication via login screen  
+- Dashboard displaying menu statistics:
+  - Total number of dishes  
+  - Average price  
+  - Categories  
+  - Vegetarian dishes  
+- Add new dishes with:
+  - Name, description, category (Starter / Main / Dessert)
+  - Price
+  - Optional image upload  
+- Remove dishes directly from the dashboard
 
-Guest
-	•	Browse all menu items with images, descriptions, prices, and categories.
+### Guest
+- Browse all available menu items
+- View dish images, descriptions, prices, and categories
+- Filter menu items by category
 
-⸻
+---
 
-Screens Implemented
+## Screens Implemented
 
-| Screen              | Description                                           |
-|--------------------|-------------------------------------------------------|
-| WelcomeScreen       | Choose to continue as Guest or Chef.                |
-| ChefLoginScreen     | Local login screen for Chef.                         |
-| ChefDashboardScreen | Shows menu statistics and list of dishes; tap a dish to remove. |
-| AddDishScreen       | Form to add a new dish with optional image.         |
-| GuestMenuScreen     | View all menu items in a scrollable list.           |
-| GuestFilterScreen   | Filter menu items by category.                      |
+| Screen | Description |
+|------|------------|
+| WelcomeScreen | Entry point to continue as Guest or Chef |
+| ChefLoginScreen | Local authentication for Chef |
+| ChefDashboardScreen | Displays menu statistics and dish list |
+| AddDishScreen | Form to add new dishes with optional image |
+| GuestMenuScreen | Scrollable list of all menu items |
+| GuestFilterScreen | Filter menu items by category |
 
-⸻
+---
 
-Navigation Flow
+## Navigation Flow
 
-Guest:
+### Guest Flow  
+`Welcome → Guest Menu → Filter Menu`
 
-WelcomeScreen → GuestMenuScreen → GuestFilterScreen
+### Chef Flow  
+`Welcome → Chef Login → Dashboard → Add Dish`
 
-Chef:
+Navigation is handled using **React Navigation (native-stack)** for smooth and structured screen transitions.
 
-WelcomeScreen → ChefLoginScreen → ChefDashboardScreen → AddDishScreen
+---
 
-⸻
+## Tech Stack
 
-Tech Stack & Dependencies
-	• React Native 0.81.5
-	• Expo SDK 54
-	• TypeScript 5.9.3
-	• React Navigation (native-stack & native)
-	• @react-native-picker/picker
-	• expo-image-picker
-	• Context API for menu state
+- **React Native** 0.81.5  
+- **Expo SDK** 54  
+- **TypeScript** 5.9.3  
+- **React Navigation** (native & native-stack)  
+- **Context API** for global menu state management  
 
-Installed Packages:
+---
 
-@react-native-picker/picker
-@react-navigation/native
-@react-navigation/native-stack
-@types/react
-@types/react-native
-@types/react-navigation
-expo
-expo-image-picker
-expo-status-bar
-react
-react-native
-react-native-safe-area-context
-react-native-screens
-typescript
+## Dependencies
 
+- @react-native-picker/picker  
+- @react-navigation/native  
+- @react-navigation/native-stack  
+- expo-image-picker  
+- expo-status-bar  
+- react-native-safe-area-context  
+- react-native-screens  
+- typescript  
 
-⸻
+---
 
-Color Palette
-	•	Background: #F8F3EE
-	•	Card: #FFFFFF (border: #E5D7C6)
-	•	Primary Text: #3E2C24
-	•	Secondary Text: #6C5C4B
-	•	Accent / Category Text: #9C8265
+## UI & Design
 
-⸻
+The app uses a warm, minimal color palette focused on readability and usability:
 
-Notes
-	•	Menu items are managed locally using MenuContext.
-	•	Adding/removing dishes updates the dashboard in real time.
-	•	Image upload is optional for each dish.
+- **Background:** `#F8F3EE`  
+- **Cards:** `#FFFFFF` (border: `#E5D7C6`)  
+- **Primary Text:** `#3E2C24`  
+- **Secondary Text:** `#6C5C4B`  
+- **Accent / Category Text:** `#9C8265`
 
+---
+
+## Notes & Implementation Details
+
+- Menu data is stored and managed locally using `MenuContext`
+- Adding or removing dishes updates the UI in real time
+- Image upload is optional for each dish
+- The project is structured for clarity, scalability, and maintainability
+
+---
